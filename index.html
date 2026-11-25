@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>NOIRFRAME — Digital Studio</title>
-
+    <title>NOIRFRAME®️ — Independent Digital Studio</title>
     <meta name="description"
-        content="NOIRFRAME is an independent digital studio specializing in video editing and web development.">
+        content="NOIRFRAME is an independent digital studio focused on modern web development and creative video editing.">
+
+    <meta name="theme-color" content="#0b0c0f">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,12 +20,14 @@
 
     <style>
         :root {
-            --bg: #101216;
-            --surface: #191d23;
-            --text: #f2f0eb;
-            --muted: #9da3ad;
-            --accent: #b9a27b;
-            --line: #30343c;
+            --bg: #0b0c0f;
+            --surface: #15171c;
+            --surface-light: #1c1f25;
+            --text: #f3f0ea;
+            --muted: #92959d;
+            --accent: #c6a77b;
+            --line: rgba(255, 255, 255, .10);
+            --container: 1120px;
         }
 
         * {
@@ -35,13 +38,26 @@
 
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 90px;
         }
 
         body {
             background: var(--bg);
             color: var(--text);
-            font-family: 'DM Sans', sans-serif;
-            line-height: 1.6;
+            font-family: "DM Sans", sans-serif;
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            background:
+                radial-gradient(ellipse at 80% 5%, rgba(198, 167, 123, .09), transparent 35%),
+                radial-gradient(ellipse at 5% 55%, rgba(80, 90, 110, .08), transparent 35%);
         }
 
         a {
@@ -49,32 +65,50 @@
             text-decoration: none;
         }
 
+        button {
+            font: inherit;
+        }
+
         .container {
-            width: min(1100px, 88%);
+            width: min(var(--container), 88%);
             margin: auto;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .accent {
+            color: var(--accent);
         }
 
         /* NAVIGATION */
 
         header {
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 10;
-            background: rgba(16, 18, 22, .94);
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(11, 12, 15, .88);
             border-bottom: 1px solid var(--line);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(18px);
         }
 
         nav {
-            min-height: 76px;
+            min-height: 78px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
 
         .logo {
-            font-family: 'Manrope', sans-serif;
-            font-size: 22px;
+            font-family: "Manrope", sans-serif;
+            font-size: 21px;
             font-weight: 800;
             letter-spacing: 2px;
         }
@@ -85,93 +119,241 @@
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            align-items: center;
+            gap: 32px;
             list-style: none;
-            font-size: 13px;
+        }
+
+        .nav-links a {
             color: var(--muted);
+            font-size: 12px;
+            transition: .25s;
         }
 
         .nav-links a:hover {
             color: var(--accent);
         }
 
+        .nav-cta {
+            border: 1px solid var(--accent);
+            padding: 10px 16px;
+            color: var(--accent) !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            color: var(--text);
+            background: none;
+            border: 0;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
         /* HERO */
 
         .hero {
-            min-height: 610px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 100px 0;
+            min-height: 760px;
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            align-items: center;
+            gap: 55px;
+            padding-top: 110px;
+            padding-bottom: 90px;
         }
 
-        .eyebrow {
-            color: var(--accent);
-            font-size: 11px;
-            letter-spacing: 3px;
-            font-weight: 700;
+        .hero-copy {
+            animation: fadeUp .8s ease both;
         }
 
-        h1,
-        h2,
-        h3 {
-            font-family: 'Manrope', sans-serif;
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #9db58d;
+            box-shadow: 0 0 12px rgba(157, 181, 141, .5);
         }
 
         .hero h1 {
-            max-width: 850px;
-            font-size: clamp(42px, 7vw, 82px);
-            line-height: 1.08;
-            margin: 25px 0;
-            letter-spacing: -3px;
+            font-family: "Manrope", sans-serif;
+            font-size: clamp(48px, 6.5vw, 82px);
+            line-height: 1.04;
+            letter-spacing: -4px;
+            font-weight: 800;
+            margin-bottom: 26px;
         }
 
         .hero h1 span {
             color: var(--accent);
         }
 
-        .hero p {
-            max-width: 510px;
+        .hero-description {
             color: var(--muted);
-            font-size: 16px;
+            font-size: 15px;
+            max-width: 440px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 35px;
         }
 
         .button {
-            display: inline-block;
-            background: var(--accent);
-            color: #101216;
-            padding: 14px 22px;
-            border-radius: 3px;
-            margin-top: 32px;
-            font-size: 13px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 21px;
+            font-size: 12px;
             font-weight: 700;
-            transition: .25s;
+            transition: .3s;
         }
 
-        .button:hover {
+        .button-primary {
+            background: var(--accent);
+            color: #101114;
+        }
+
+        .button-primary:hover {
+            background: #dfc49c;
             transform: translateY(-3px);
-            background: #d0b991;
         }
 
-        /* SECTIONS */
+        .button-outline {
+            border: 1px solid var(--line);
+            color: var(--text);
+        }
 
-        section {
-            padding: 95px 0;
+        .button-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* HERO VISUAL */
+
+        .hero-visual {
+            position: relative;
+            min-height: 420px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeUp 1s .2s ease both;
+        }
+
+        .visual-frame {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(145deg, #29251f, #17191e 55%, #101114);
+            border: 1px solid rgba(198, 167, 123, .25);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .visual-frame::before {
+            content: "";
+            position: absolute;
+            width: 75%;
+            aspect-ratio: 1;
+            border: 1px solid rgba(198, 167, 123, .25);
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 35px rgba(198, 167, 123, .025),
+                0 0 0 70px rgba(198, 167, 123, .02);
+        }
+
+        .visual-monogram {
+            font-family: "Manrope", sans-serif;
+            font-size: clamp(90px, 15vw, 170px);
+            font-weight: 800;
+            letter-spacing: -15px;
+            color: rgba(198, 167, 123, .9);
+            z-index: 1;
+        }
+
+        .visual-caption {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+            right: 25px;
+            display: flex;
+            justify-content: space-between;
+            color: #b8b0a3;
+            font-size: 9px;
+            letter-spacing: 2px;
+        }
+
+        .visual-index {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: var(--accent);
+            font-size: 10px;
+        }
+
+        /* INTRO STRIP */
+
+        .intro-strip {
             border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            padding: 22px 0;
+            overflow: hidden;
+        }
+
+        .strip-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            color: var(--muted);
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
+
+        .strip-inner span::before {
+            content: "✳";
+            color: var(--accent);
+            margin-right: 12px;
+        }
+
+        /* GENERAL SECTION */
+
+        section.content-section {
+            padding: 115px 0;
+            border-bottom: 1px solid var(--line);
         }
 
         .section-heading {
-            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 25px;
+            margin-bottom: 48px;
         }
 
         .section-heading h2 {
-            font-size: clamp(30px, 5vw, 46px);
-            margin-top: 12px;
+            font-family: "Manrope", sans-serif;
+            font-size: clamp(34px, 5vw, 54px);
+            letter-spacing: -2px;
+            line-height: 1.15;
+            margin-top: 14px;
         }
 
         .section-heading p {
             color: var(--muted);
-            margin-top: 10px;
+            font-size: 13px;
+            max-width: 310px;
         }
 
         /* PROJECTS */
@@ -179,63 +361,113 @@
         .projects {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
+            gap: 24px;
         }
 
         .project-card {
             background: var(--surface);
             border: 1px solid var(--line);
-            overflow: hidden;
-            transition: .25s;
+            transition: .35s;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
+            transform: translateY(-6px);
+            border-color: rgba(198, 167, 123, .55);
         }
 
-        .project-image {
-            height: 250px;
+        .project-art {
+            position: relative;
+            min-height: 290px;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            background:
-                radial-gradient(circle at 70% 30%, #42404a, transparent 50%),
-                #20242b;
+            background: #20232a;
         }
 
-        .project-image.gold {
-            background:
-                radial-gradient(circle at 30% 60%, #66533b, transparent 55%),
-                #25221e;
+        .art-one {
+            background: linear-gradient(135deg, #292d35, #14161b);
         }
 
-        .project-image span {
-            font-family: 'Manrope', sans-serif;
-            font-size: 38px;
-            font-weight: 800;
-            color: var(--accent);
-            letter-spacing: 3px;
+        .art-two {
+            background: linear-gradient(135deg, #433a2e, #171614);
+        }
+
+        .art-window {
+            width: 75%;
+            height: 68%;
+            border: 1px solid rgba(255, 255, 255, .18);
+            background: rgba(10, 12, 15, .65);
+            padding: 15px;
+            transform: rotate(-4deg);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .3);
+        }
+
+        .art-window-top {
+            height: 8px;
+            border-bottom: 1px solid var(--line);
+            margin-bottom: 20px;
+        }
+
+        .art-lines {
+            width: 75%;
+            height: 8px;
+            margin: 12px 0;
+            background: rgba(198, 167, 123, .5);
+        }
+
+        .art-lines.short {
+            width: 40%;
+            background: rgba(255, 255, 255, .18);
+        }
+
+        .art-boxes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 25px;
+        }
+
+        .art-boxes span {
+            height: 55px;
+            background: #343943;
+        }
+
+        .art-two .art-boxes span {
+            background: #62503a;
         }
 
         .project-info {
-            padding: 23px;
+            padding: 25px;
         }
 
-        .project-info small {
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
             color: var(--accent);
-            letter-spacing: 1px;
-            font-size: 10px;
+            font-size: 9px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
         }
 
         .project-info h3 {
-            margin: 8px 0;
-            font-size: 20px;
+            font-family: "Manrope", sans-serif;
+            font-size: 22px;
+            margin: 14px 0 8px;
         }
 
         .project-info p {
             color: var(--muted);
             font-size: 13px;
+        }
+
+        .concept-note {
+            display: inline-block;
+            margin-top: 13px;
+            color: var(--accent);
+            font-size: 10px;
+            letter-spacing: 1px;
         }
 
         /* SERVICES */
@@ -247,82 +479,214 @@
         }
 
         .service-card {
-            padding: 35px;
-            border: 1px solid var(--line);
             background: var(--surface);
+            padding: 38px;
+            border: 1px solid var(--line);
+            transition: .3s;
         }
 
-        .service-card .number {
+        .service-card:hover {
+            border-color: var(--accent);
+            background: var(--surface-light);
+        }
+
+        .service-number {
             color: var(--accent);
-            font-size: 13px;
+            font-size: 11px;
+            letter-spacing: 2px;
         }
 
         .service-card h3 {
-            font-size: 24px;
-            margin: 20px 0 12px;
+            font-family: "Manrope", sans-serif;
+            font-size: 25px;
+            margin: 30px 0 12px;
         }
 
         .service-card p {
             color: var(--muted);
-            font-size: 14px;
+            font-size: 13px;
+            max-width: 390px;
+        }
+
+        .service-list {
+            margin-top: 25px;
+            list-style: none;
+            border-top: 1px solid var(--line);
+            padding-top: 18px;
+        }
+
+        .service-list li {
+            color: #c6c6c5;
+            font-size: 12px;
+            padding: 7px 0;
+        }
+
+        .service-list li::before {
+            content: "↗️";
+            color: var(--accent);
+            margin-right: 12px;
         }
 
         /* ABOUT */
 
-        .about-text {
-            max-width: 700px;
-            color: var(--muted);
-            font-size: 16px;
+        .about-layout {
+            display: grid;
+            grid-template-columns: .8fr 1.2fr;
+            gap: 70px;
         }
 
-        .about-text strong {
+        .about-layout h2 {
+            font-family: "Manrope", sans-serif;
+            font-size: clamp(36px, 5vw, 54px);
+            line-height: 1.15;
+            letter-spacing: -2px;
+            margin-top: 15px;
+        }
+
+        .about-copy p {
+            color: var(--muted);
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .about-copy strong {
             color: var(--text);
+        }
+
+        .about-values {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        .value-item {
+            padding: 20px;
+            border: 1px solid var(--line);
+            background: var(--surface);
+        }
+
+        .value-item strong {
+            display: block;
+            font-family: "Manrope", sans-serif;
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .value-item span {
+            color: var(--muted);
+            font-size: 11px;
         }
 
         /* CONTACT */
 
-        .contact {
-            background: var(--surface);
-            padding: 55px;
-            border: 1px solid var(--line);
+        .contact-panel {
+            position: relative;
+            padding: 65px;
+            background:
+                radial-gradient(circle at 90% 20%, rgba(198, 167, 123, .15), transparent 35%),
+                var(--surface);
+            border: 1px solid rgba(198, 167, 123, .25);
         }
 
-        .contact h2 {
-            font-size: clamp(30px, 5vw, 48px);
-            margin: 15px 0;
+        .contact-panel h2 {
+            font-family: "Manrope", sans-serif;
+            font-size: clamp(36px, 6vw, 65px);
+            line-height: 1.1;
+            letter-spacing: -3px;
+            margin: 20px 0;
         }
 
-        .contact p {
+        .contact-panel p {
             color: var(--muted);
+            font-size: 14px;
+            max-width: 430px;
         }
+
+        /* FOOTER */
 
         footer {
-            padding: 30px 0;
-            color: var(--muted);
-            font-size: 12px;
+            padding: 35px 0;
         }
 
-        footer .container {
+        .footer-inner {
             display: flex;
             justify-content: space-between;
-            gap: 15px;
+            align-items: center;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
-        /* MOBILE */
+        .footer-copy {
+            color: var(--muted);
+            font-size: 11px;
+        }
 
-        @media (max-width: 650px) {
-            .nav-links {
-                gap: 12px;
-                font-size: 11px;
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        /* SCROLL ANIMATION */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
             }
 
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 760px) {
             .hero {
-                min-height: 520px;
+                grid-template-columns: 1fr;
+                padding-top: 145px;
+                min-height: auto;
+                gap: 45px;
             }
 
             .hero h1 {
-                letter-spacing: -2px;
+                font-size: clamp(44px, 10vw, 65px);
+                letter-spacing: -3px;
+            }
+
+            .hero-visual {
+                min-height: auto;
+            }
+
+            .visual-frame {
+                max-width: 370px;
+            }
+
+            .section-heading {
+                display: block;
+            }
+
+            .section-heading p {
+                margin-top: 18px;
             }
 
             .projects,
@@ -330,12 +694,61 @@
                 grid-template-columns: 1fr;
             }
 
-            .project-image {
-                height: 210px;
+            .about-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
             }
 
-            .contact {
-                padding: 30px 22px;
+            section.content-section {
+                padding: 80px 0;
+            }
+
+            .contact-panel {
+                padding: 38px 25px;
+            }
+
+            .strip-inner {
+                justify-content: flex-start;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 78px;
+                left: 0;
+                width: 100%;
+                padding: 25px 6%;
+                background: #111318;
+                border-bottom: 1px solid var(--line);
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 23px;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
             }
         }
     </style>
@@ -343,15 +756,21 @@
 
 <body>
 
+    <!-- NAVIGATION -->
+
     <header>
         <nav class="container">
-            <a href="#" class="logo">NOIR<span>FRAME.</span></a>
+            <a href="#home" class="logo">NOIR<span>FRAME.</span></a>
 
-            <ul class="nav-links">
-                <li><a href="#work">Work</a></li>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+                ☰
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#work">Selected Work</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#contact" class="nav-cta">Let's Talk ↗️</a></li>
             </ul>
         </nav>
     </header>
@@ -360,66 +779,130 @@
 
         <!-- HERO -->
 
-        <div class="container">
-            <section class="hero" style="border: none;">
-                <span class="eyebrow">INDEPENDENT DIGITAL STUDIO</span>
+        <div class="container" id="home">
+            <section class="hero">
 
-                <h1>
-                    WE BUILD<br>
-                    DIGITAL <span>EXPERIENCES.</span>
-                </h1>
+                <div class="hero-copy">
+                    <div class="hero-label">
+                        <span class="status-dot"></span>
+                        <span class="eyebrow">Independent Digital Studio</span>
+                    </div>
 
-                <p>
-                    We help individuals and growing businesses
-                    create engaging digital content and modern
-                    websites through thoughtful design and technology.
-                </p>
+                    <h1>
+                        CREATIVITY<br>
+                        MEETS <span>PRECISION.</span>
+                    </h1>
 
-                <div>
-                    <a href="#work" class="button">EXPLORE OUR WORK ↗️</a>
+                    <p class="hero-description">
+                        We create thoughtful digital experiences through
+                        modern web development and engaging video content.
+                        Built with purpose. Designed to connect.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#work" class="button button-primary">
+                            EXPLORE OUR WORK ↗️
+                        </a>
+
+                        <a href="#contact" class="button button-outline">
+                            GET IN TOUCH
+                        </a>
+                    </div>
                 </div>
+
+                <div class="hero-visual">
+                    <div class="visual-frame">
+                        <span class="visual-index">EST. 2026 / 001</span>
+                        <div class="visual-monogram">N.</div>
+                        <div class="visual-caption">
+                            <span>DESIGN WITH PURPOSE</span>
+                            <span>NOIRFRAME®️</span>
+                        </div>
+                    </div>
+                </div>
+
             </section>
         </div>
 
-        <!-- WORK -->
+        <!-- INTRO STRIP -->
 
-        <section id="work">
+        <div class="intro-strip">
+            <div class="container strip-inner">
+                <span>WEB DEVELOPMENT</span>
+                <span>VIDEO EDITING</span>
+                <span>DIGITAL CREATIVITY</span>
+                <span>THOUGHTFUL DESIGN</span>
+            </div>
+        </div>
+
+        <!-- PROJECTS -->
+
+        <section class="content-section" id="work">
             <div class="container">
-                <div class="section-heading">
-                    <span class="eyebrow">01 / PORTFOLIO</span>
-                    <h2>Selected Work.</h2>
-                    <p>A collection of creative and digital projects.</p>
+
+                <div class="section-heading reveal">
+                    <div>
+                        <span class="eyebrow">01 / Selected Work</span>
+                        <h2>Ideas into<br>Digital Reality.</h2>
+                    </div>
+
+                    <p>
+                        A selection of independent concept projects
+                        exploring creativity, design and technology.
+                    </p>
                 </div>
 
                 <div class="projects">
 
-                    <article class="project-card">
-                        <div class="project-image">
-                            <span>VIDEO / 01</span>
+                    <article class="project-card reveal">
+                        <div class="project-art art-one">
+                            <div class="art-window">
+                                <div class="art-window-top"></div>
+                                <div class="art-lines"></div>
+                                <div class="art-lines short"></div>
+                                <div class="art-boxes">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="project-info">
-                            <small>VIDEO EDITING · CONCEPT PROJECT</small>
-                            <h3>Podcast Reels</h3>
+                            <div class="project-meta">
+                                <span>WEB DEVELOPMENT</span>
+                                <span>01 / 02</span>
+                            </div>
+                            <h3>Digital Business Website</h3>
                             <p>
-                                Short-form content with subtitles,
-                                clean cuts and engaging visual elements.
+                                A modern website concept focused on
+                                clean layouts and user experience.
                             </p>
+                            <span class="concept-note">PERSONAL CONCEPT PROJECT</span>
                         </div>
                     </article>
 
-                    <article class="project-card">
-                        <div class="project-image gold">
-                            <span>WEB / 02</span>
+                    <article class="project-card reveal">
+                        <div class="project-art art-two">
+                            <div class="art-window">
+                                <div class="art-window-top"></div>
+                                <div class="art-lines"></div>
+                                <div class="art-lines short"></div>
+                                <div class="art-boxes">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="project-info">
-                            <small>WEB DEVELOPMENT · CONCEPT PROJECT</small>
-                            <h3>Business Landing Page</h3>
+                            <div class="project-meta">
+                                <span>VIDEO EDITING</span>
+                                <span>02 / 02</span>
+                            </div>
+                            <h3>Short-form Content</h3>
                             <p>
-                                A modern landing page concept for
-                                a small business.
+                                A creative short-video concept with
+                                engaging cuts and visual storytelling.
                             </p>
+                            <span class="concept-note">PERSONAL CONCEPT PROJECT</span>
                         </div>
                     </article>
 
@@ -429,34 +912,55 @@
 
         <!-- SERVICES -->
 
-        <section id="services">
+        <section class="content-section" id="services">
             <div class="container">
-                <div class="section-heading">
-                    <span class="eyebrow">02 / WHAT WE DO</span>
-                    <h2>Our Services.</h2>
-                    <p>Creative solutions for digital growth.</p>
+
+                <div class="section-heading reveal">
+                    <div>
+                        <span class="eyebrow">02 / What We Do</span>
+                        <h2>Our Expertise.</h2>
+                    </div>
+
+                    <p>
+                        Practical digital solutions designed
+                        to help ideas reach their audience.
+                    </p>
                 </div>
 
                 <div class="services">
 
-                    <article class="service-card">
-                        <span class="number">01 / CREATIVE</span>
+                    <article class="service-card reveal">
+                        <span class="service-number">01 / CREATIVE</span>
                         <h3>Video Editing</h3>
+
                         <p>
-                            Short-form videos, Instagram Reels,
-                            TikTok content, YouTube Shorts
-                            and podcast clips.
+                            Engaging short-form video content
+                            for creators, brands and businesses.
                         </p>
+
+                        <ul class="service-list">
+                            <li>Instagram Reels & TikTok</li>
+                            <li>YouTube Shorts</li>
+                            <li>Podcast Clips</li>
+                            <li>Product Promotion</li>
+                        </ul>
                     </article>
 
-                    <article class="service-card">
-                        <span class="number">02 / TECHNOLOGY</span>
+                    <article class="service-card reveal">
+                        <span class="service-number">02 / TECHNOLOGY</span>
                         <h3>Web Development</h3>
+
                         <p>
-                            Personal websites, simple landing pages,
-                            responsive layouts and basic
-                            HTML/CSS development.
+                            Simple, modern and responsive websites
+                            built around your digital needs.
                         </p>
+
+                        <ul class="service-list">
+                            <li>Personal Portfolio Websites</li>
+                            <li>Business Landing Pages</li>
+                            <li>HTML & CSS Development</li>
+                            <li>Responsive Web Layouts</li>
+                        </ul>
                     </article>
 
                 </div>
@@ -465,56 +969,169 @@
 
         <!-- ABOUT -->
 
-        <section id="about">
-            <div class="container">
-                <div class="section-heading">
-                    <span class="eyebrow">03 / ABOUT US</span>
-                    <h2>Small Studio.<br>Thoughtful Work.</h2>
+        <section class="content-section" id="about">
+            <div class="container about-layout">
+
+                <div class="reveal">
+                    <span class="eyebrow">03 / About NOIRFRAME</span>
+                    <h2>Built on<br><span class="accent">Purpose.</span></h2>
                 </div>
 
-                <p class="about-text">
-                    <strong>NOIRFRAME</strong> is an independent
-                    digital studio focused on combining
-                    creativity and technology.
+                <div class="about-copy reveal">
+                    <p>
+                        <strong>NOIRFRAME</strong> is an independent
+                        digital studio exploring the intersection
+                        of creativity and technology.
+                    </p>
 
-                    We believe that good digital experiences
-                    should be simple, functional and meaningful.
+                    <p>
+                        We focus on creating meaningful digital
+                        experiences through video editing and
+                        modern web development.
+                    </p>
 
-                    Our goal is to help people and businesses
-                    communicate their ideas through
-                    engaging content and modern websites.
-                </p>
+                    <p>
+                        Every project is an opportunity to learn,
+                        improve and deliver thoughtful work.
+                    </p>
+
+                    <div class="about-values">
+                        <div class="value-item">
+                            <strong>01. Simplicity</strong>
+                            <span>Clean and focused solutions.</span>
+                        </div>
+
+                        <div class="value-item">
+                            <strong>02. Creativity</strong>
+                            <span>Ideas with a clear purpose.</span>
+                        </div>
+
+                        <div class="value-item">
+                            <strong>03. Precision</strong>
+                            <span>Attention to every detail.</span>
+                        </div>
+
+                        <div class="value-item">
+                            <strong>04. Growth</strong>
+                            <span>Learning through every project.</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
         <!-- CONTACT -->
 
-        <section id="contact">
+        <section class="content-section" id="contact">
             <div class="container">
-                <div class="contact">
-                    <span class="eyebrow">04 / GET IN TOUCH</span>
+                <div class="contact-panel reveal">
 
-                    <h2>Have a project<br>in mind?</h2>
+                    <span class="eyebrow">04 / Start a Conversation</span>
+
+                    <h2>
+                        Have an idea?<br>
+                        Let's make it <span class="accent">real.</span>
+                    </h2>
 
                     <p>
-                        Let's discuss how we can work together.
+                        Have a project in mind? Feel free to reach out.
+                        Let's discuss how we can bring your ideas to life.
                     </p>
 
-                    <a href="mailto:YOUR_EMAIL@example.com" class="button">
-                        CONTACT US ↗️
-                    </a>
+                    <div class="hero-actions">
+
+                        <!-- WHATSAPP CONTACT -->
+                        <a href="https://wa.me/6287886667599?text=Hello%20NOIRFRAME!%20I%20am%20interested%20in%20your%20services."
+                            target="_blank" rel="noopener noreferrer" class="button button-primary">
+
+                            WHATSAPP US ↗️
+
+                        </a>
+
+                        <!-- FIVERR PROFILE -->
+                        <a href="https://www.fiverr.com/geckoed" target="_blank" rel="noopener noreferrer"
+                            class="button button-outline">
+
+                            VIEW OUR FIVERR ↗️
+
+                        </a>
+
+                    </div>
+
+                    <p style="margin-top: 25px; font-size: 11px;">
+                        Available for freelance projects and collaborations.
+                    </p>
+
                 </div>
             </div>
         </section>
 
-    </main>
+        <!-- FOOTER -->
 
-    <footer>
-        <div class="container">
-            <span>©️ 2026 NOIRFRAME Digital Studio</span>
-            <span>DESIGNED WITH PURPOSE.</span>
-        </div>
-    </footer>
+        <footer>
+            <div class="container footer-inner">
+
+                <a href="#home" class="logo">NOIR<span>FRAME.</span></a>
+
+                <span class="footer-copy">
+                    ©️ <span id="year"></span> NOIRFRAME Digital Studio.
+                </span>
+
+                <div class="footer-links">
+                    <a href="#work">Work</a>
+                    <a href="#services">Services</a>
+                    <a href="#contact">Contact</a>
+                </div>
+
+            </div>
+        </footer>
+
+        <script>
+            // Mobile navigation
+
+            const menuToggle = document.getElementById("menuToggle");
+            const navLinks = document.getElementById("navLinks");
+
+            menuToggle.addEventListener("click", () => {
+                const isOpen = navLinks.classList.toggle("open");
+
+                menuToggle.setAttribute("aria-expanded", isOpen);
+                menuToggle.textContent = isOpen ? "×" : "☰";
+            });
+
+            // Close mobile menu after selecting a link
+
+            document.querySelectorAll(".nav-links a").forEach(link => {
+                link.addEventListener("click", () => {
+                    navLinks.classList.remove("open");
+                    menuToggle.setAttribute("aria-expanded", "false");
+                    menuToggle.textContent = "☰";
+                });
+            });
+
+            // Scroll reveal animation
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.12
+            });
+
+            document.querySelectorAll(".reveal").forEach(element => {
+                observer.observe(element);
+            });
+
+            // Dynamic copyright year
+
+            document.getElementById("year").textContent =
+                new Date().getFullYear();
+        </script>
 
 </body>
 
