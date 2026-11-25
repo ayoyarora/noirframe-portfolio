@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NOIRFRAME — Digital Studio</title>
+
+    <meta name="description"
+        content="NOIRFRAME is an independent digital studio specializing in video editing and web development.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #101216;
+            --surface: #191d23;
+            --text: #f2f0eb;
+            --muted: #9da3ad;
+            --accent: #b9a27b;
+            --line: #30343c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1100px, 88%);
+            margin: auto;
+        }
+
+        /* NAVIGATION */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(16, 18, 22, .94);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(12px);
+        }
+
+        nav {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: 'Manrope', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 610px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 100px 0;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-size: 11px;
+            letter-spacing: 3px;
+            font-weight: 700;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .hero h1 {
+            max-width: 850px;
+            font-size: clamp(42px, 7vw, 82px);
+            line-height: 1.08;
+            margin: 25px 0;
+            letter-spacing: -3px;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            max-width: 510px;
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        .button {
+            display: inline-block;
+            background: var(--accent);
+            color: #101216;
+            padding: 14px 22px;
+            border-radius: 3px;
+            margin-top: 32px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: .25s;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            background: #d0b991;
+        }
+
+        /* SECTIONS */
+
+        section {
+            padding: 95px 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .section-heading {
+            margin-bottom: 40px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(30px, 5vw, 46px);
+            margin-top: 12px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            margin-top: 10px;
+        }
+
+        /* PROJECTS */
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            overflow: hidden;
+            transition: .25s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .project-image {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at 70% 30%, #42404a, transparent 50%),
+                #20242b;
+        }
+
+        .project-image.gold {
+            background:
+                radial-gradient(circle at 30% 60%, #66533b, transparent 55%),
+                #25221e;
+        }
+
+        .project-image span {
+            font-family: 'Manrope', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: 3px;
+        }
+
+        .project-info {
+            padding: 23px;
+        }
+
+        .project-info small {
+            color: var(--accent);
+            letter-spacing: 1px;
+            font-size: 10px;
+        }
+
+        .project-info h3 {
+            margin: 8px 0;
+            font-size: 20px;
+        }
+
+        .project-info p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* SERVICES */
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            padding: 35px;
+            border: 1px solid var(--line);
+            background: var(--surface);
+        }
+
+        .service-card .number {
+            color: var(--accent);
+            font-size: 13px;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin: 20px 0 12px;
+        }
+
+        .service-card p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* ABOUT */
+
+        .about-text {
+            max-width: 700px;
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        .about-text strong {
+            color: var(--text);
+        }
+
+        /* CONTACT */
+
+        .contact {
+            background: var(--surface);
+            padding: 55px;
+            border: 1px solid var(--line);
+        }
+
+        .contact h2 {
+            font-size: clamp(30px, 5vw, 48px);
+            margin: 15px 0;
+        }
+
+        .contact p {
+            color: var(--muted);
+        }
+
+        footer {
+            padding: 30px 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        footer .container {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 650px) {
+            .nav-links {
+                gap: 12px;
+                font-size: 11px;
+            }
+
+            .hero {
+                min-height: 520px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .projects,
+            .services {
+                grid-template-columns: 1fr;
+            }
+
+            .project-image {
+                height: 210px;
+            }
+
+            .contact {
+                padding: 30px 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">NOIR<span>FRAME.</span></a>
+
+            <ul class="nav-links">
+                <li><a href="#work">Work</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- HERO -->
+
+        <div class="container">
+            <section class="hero" style="border: none;">
+                <span class="eyebrow">INDEPENDENT DIGITAL STUDIO</span>
+
+                <h1>
+                    WE BUILD<br>
+                    DIGITAL <span>EXPERIENCES.</span>
+                </h1>
+
+                <p>
+                    We help individuals and growing businesses
+                    create engaging digital content and modern
+                    websites through thoughtful design and technology.
+                </p>
+
+                <div>
+                    <a href="#work" class="button">EXPLORE OUR WORK ↗️</a>
+                </div>
+            </section>
+        </div>
+
+        <!-- WORK -->
+
+        <section id="work">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">01 / PORTFOLIO</span>
+                    <h2>Selected Work.</h2>
+                    <p>A collection of creative and digital projects.</p>
+                </div>
+
+                <div class="projects">
+
+                    <article class="project-card">
+                        <div class="project-image">
+                            <span>VIDEO / 01</span>
+                        </div>
+
+                        <div class="project-info">
+                            <small>VIDEO EDITING · CONCEPT PROJECT</small>
+                            <h3>Podcast Reels</h3>
+                            <p>
+                                Short-form content with subtitles,
+                                clean cuts and engaging visual elements.
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-image gold">
+                            <span>WEB / 02</span>
+                        </div>
+
+                        <div class="project-info">
+                            <small>WEB DEVELOPMENT · CONCEPT PROJECT</small>
+                            <h3>Business Landing Page</h3>
+                            <p>
+                                A modern landing page concept for
+                                a small business.
+                            </p>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+
+        <section id="services">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">02 / WHAT WE DO</span>
+                    <h2>Our Services.</h2>
+                    <p>Creative solutions for digital growth.</p>
+                </div>
+
+                <div class="services">
+
+                    <article class="service-card">
+                        <span class="number">01 / CREATIVE</span>
+                        <h3>Video Editing</h3>
+                        <p>
+                            Short-form videos, Instagram Reels,
+                            TikTok content, YouTube Shorts
+                            and podcast clips.
+                        </p>
+                    </article>
+
+                    <article class="service-card">
+                        <span class="number">02 / TECHNOLOGY</span>
+                        <h3>Web Development</h3>
+                        <p>
+                            Personal websites, simple landing pages,
+                            responsive layouts and basic
+                            HTML/CSS development.
+                        </p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+
+        <section id="about">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">03 / ABOUT US</span>
+                    <h2>Small Studio.<br>Thoughtful Work.</h2>
+                </div>
+
+                <p class="about-text">
+                    <strong>NOIRFRAME</strong> is an independent
+                    digital studio focused on combining
+                    creativity and technology.
+
+                    We believe that good digital experiences
+                    should be simple, functional and meaningful.
+
+                    Our goal is to help people and businesses
+                    communicate their ideas through
+                    engaging content and modern websites.
+                </p>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+
+        <section id="contact">
+            <div class="container">
+                <div class="contact">
+                    <span class="eyebrow">04 / GET IN TOUCH</span>
+
+                    <h2>Have a project<br>in mind?</h2>
+
+                    <p>
+                        Let's discuss how we can work together.
+                    </p>
+
+                    <a href="mailto:YOUR_EMAIL@example.com" class="button">
+                        CONTACT US ↗️
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <span>©️ 2026 NOIRFRAME Digital Studio</span>
+            <span>DESIGNED WITH PURPOSE.</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>
